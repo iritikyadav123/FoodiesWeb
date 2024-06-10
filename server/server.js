@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config({path : ".env"});
 const cors = require("cors");
 var cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 const cloudinaryConfig = require("./config/cloudinaryConfig");
 
 

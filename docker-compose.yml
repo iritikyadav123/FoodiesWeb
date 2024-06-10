@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  foodiesweb_backend:
+    build: ./server
+    image: foodiesweb_backend
+    container_name: backend_app
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/user
+
+  foodiesweb_fronte:
+    build: ./ 
+    image: foodiesweb_frontend
+    container_name: frontend_app
+    depends_on:
+      - foodiesweb_backend
+
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:8000/api/v1
+
+volumes:
+  mongodb_data:

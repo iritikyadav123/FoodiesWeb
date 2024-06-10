@@ -1,15 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-} from "react-icons/ai";
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import logo from "../assets/logo2.png";
@@ -23,7 +14,7 @@ function Login() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   function changeHandler(event) {
@@ -33,7 +24,6 @@ function Login() {
     }));
   }
 
-
   async function submitHandler(event) {
     event.preventDefault();
 
@@ -41,8 +31,8 @@ function Login() {
       //Loader will show till the api fetching is done as show as promise is resolved the loader will be not shown
       setLoading(true);
 
-      // const apiUrl = `${process.env.REACT_APP_BASE_URL}/studentLogin`;
-       const apiUrl = `http://localhost:4000/api/v1/studentLogin`;
+       const apiUrl = `${process.env.REACT_APP_BASE_URL}/studentLogin`;
+       //const apiUrl = `http://localhost:4000/api/v1/studentLogin`;
 
        try {
         setLoading(true);
@@ -98,7 +88,6 @@ function Login() {
                 Canteens
               </p>
             </div>
-
             <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
             <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
             <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -134,20 +123,13 @@ function Login() {
                   name="accountType"
                   onChange={changeHandler}
                   value={formData.accountType}
-                  className="mt-1 p-2 w-full border rounded-2xl">
-                  <option
-                    value=""
-                    disabled
-                    selected
-                    hidden>
+                  className="mt-1 p-2 w-full border rounded-2xl"
+                >
+                  <option value="" disabled hidden>
                     Login as
                   </option>
-                  <option value="User">
-                    User
-                  </option>
-                  <option value="Canteen">
-                    Canteen
-                  </option>
+                  <option value="User">User</option>
+                  <option value="Canteen">Canteen</option>
                 </select>
               </div>
 
@@ -155,11 +137,7 @@ function Login() {
                 <input
                   required
                   className="w-full py-2 px-3 border border-gray-300 rounded-2xl"
-                  type={
-                    showPassword
-                      ? "text"
-                      : "password"
-                  }
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   name="password"
                   value={formData.password}
@@ -167,25 +145,18 @@ function Login() {
                 />
                 <span
                   className="absolute right-3 top-3 cursor-pointer"
-                  onClick={() =>
-                    setShowPassword(
-                      (prev) => !prev
-                    )
-                  }>
-                  {showPassword ? (
-                    <AiOutlineEye size={20} />
-                  ) : (
-                    <AiOutlineEyeInvisible
-                      size={20}
-                    />
-                  )}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <AiOutlineEye size={20} /> : <AiOutlineEyeInvisible size={20} />}
                 </span>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-t from-blue-950 via-blue-950 to-gray-900 py-2 rounded-2xl text-white font-semibold mb-2">
-                Login
+                className="w-full bg-gradient-to-t from-blue-950 via-blue-950 to-gray-900 py-2 rounded-2xl text-white font-semibold mb-2"
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : 'Login'}
               </button>
 
               <Link to="/signup">
@@ -195,20 +166,9 @@ function Login() {
               </Link>
             </form>
           </div>
-          <button type="submit" className="w-full bg-gradient-to-t from-blue-950 via-blue-950 to-gray-900 py-2 rounded-2xl text-white font-semibold mb-2" disabled = {loading} >
-            {loading ? 'Loading...' : 'Login'}
-          </button>
-
-          <Link to="/signup">
-            <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">Don't have an account? Sign Up</span>
-          </Link>
-          
-        </form>
-
-      </div>
-
-    </div>
-
+        </div>
+      )}
+    </>
   );
 }
 
